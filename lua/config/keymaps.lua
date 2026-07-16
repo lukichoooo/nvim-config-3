@@ -13,3 +13,26 @@ vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help ta
 vim.keymap.set("n", "<leader>e", function()
 	Snacks.explorer()
 end, { desc = "File Explorer" })
+
+------------------------------------------------------- Windsurf / Codeium AI
+vim.g.codeium_disable_bindings = 1
+
+-- manual trigger
+vim.keymap.set("i", "<A-k>", function()
+	return vim.fn["codeium#Complete"]()
+end, { expr = true, silent = true })
+
+-- accept full suggestion
+vim.keymap.set("i", "<A-h>", function()
+	return vim.fn["codeium#Accept"]()
+end, { expr = true, silent = true })
+
+-- next suggestion
+vim.keymap.set("i", "<A-l>", function()
+	return vim.fn["codeium#CycleCompletions"](1)
+end, { expr = true, silent = true })
+
+-- previous suggestion
+vim.keymap.set("i", "<A-j>", function()
+	return vim.fn["codeium#CycleCompletions"](-1)
+end, { expr = true, silent = true })
