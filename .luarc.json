@@ -1,0 +1,5 @@
+{
+    "diagnostics.disable": [
+        "unknown-diag-code"
+    ]
+}
