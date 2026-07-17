@@ -34,6 +34,18 @@ return {
 					keymap.set("n", "K", vim.lsp.buf.hover, opts)
 				end,
 			})
+
+			local severity = vim.diagnostic.severity
+			vim.diagnostic.config({
+				signs = {
+					text = {
+						[severity.ERROR] = ";<",
+						[severity.WARN] = "W",
+						[severity.INFO] = ";3",
+						[severity.HINT] = ";>",
+					},
+				},
+			})
 		end,
 	},
 }

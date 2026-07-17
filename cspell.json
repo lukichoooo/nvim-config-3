@@ -20,6 +20,14 @@
     "pwait",
     "Grug",
     "buftype",
-    "noremap"
+    "noremap",
+    "Undotree",
+    "formatexpr",
+    "isort",
+    "shfmt",
+    "gitsigns",
+    "diffthis",
+    "topdelete",
+    "changedelete"
   ]
 }
