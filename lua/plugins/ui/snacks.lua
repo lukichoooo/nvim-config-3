@@ -8,7 +8,7 @@ return {
 		scroll = {
 			enabled = true,
 			animate = {
-				duration = 3,
+				duration = 1,
 				-- easing = "linear",
 				fps = 60,
 			},

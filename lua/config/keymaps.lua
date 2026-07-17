@@ -37,5 +37,5 @@ vim.keymap.set("i", "<A-j>", function()
 	return vim.fn["codeium#CycleCompletions"](-1)
 end, { expr = true, silent = true })
 
------------------------ Save all Files
-vim.keymap.set("n", "<C-s>", ":wa<CR>", { noremap = true, silent = true })
+----------------------- Save File
+vim.keymap.set("n", "<C-s>", ":w<CR>", { noremap = true, silent = true })

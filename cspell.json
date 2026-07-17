@@ -17,6 +17,9 @@
     "startinsert",
     "oldfiles",
     "stdpath",
-    "pwait"
+    "pwait",
+    "Grug",
+    "buftype",
+    "noremap"
   ]
 }
