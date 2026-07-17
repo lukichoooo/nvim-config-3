@@ -4,7 +4,6 @@ return {
 		ensure_installed = {
 			"stylua",
 			"clangd",
-			"scpell",
 			"scpell_lsp",
 		},
 	},

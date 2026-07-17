@@ -1,5 +1,8 @@
 return {
 	"saghen/blink.cmp",
+	build = function()
+		require("blink.cmp").build():pwait()
+	end,
 	dependencies = { "saghen/blink.lib" },
 	opts = {
 		completion = { documentation = { auto_show = true } },
@@ -10,4 +13,5 @@ return {
 			["<C-Space>"] = { "show", "fallback" },
 		},
 	},
+	fuzzy = { implementation = "rust" },
 }

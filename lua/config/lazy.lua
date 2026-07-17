@@ -29,7 +29,6 @@ require("lazy").setup({
 		{ import = "plugins.colorscheme" },
 		{ import = "plugins.editor" },
 		{ import = "plugins.formatting" },
-		{ import = "plugins.linting" },
 		{ import = "plugins.lsp" },
 		{ import = "plugins.treesitter" },
 		{ import = "plugins.ui" },

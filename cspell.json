@@ -6,6 +6,17 @@
     "augroup",
     "saghen",
     "opencode",
-    "lazydev"
+    "lazydev",
+    "nohlsearch",
+    "undodir",
+    "updatetime",
+    "statuscolumn",
+    "lspconfig",
+    "scpell",
+    "keymap",
+    "startinsert",
+    "oldfiles",
+    "stdpath",
+    "pwait"
   ]
 }
