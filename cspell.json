@@ -28,6 +28,13 @@
     "gitsigns",
     "diffthis",
     "topdelete",
-    "changedelete"
+    "changedelete",
+    "unnamedplus",
+    "undofile",
+    "swapfile",
+    "isfname",
+    "termguicolors",
+    "incsearch",
+    "hlsearch"
   ]
 }
