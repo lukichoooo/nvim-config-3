@@ -35,6 +35,7 @@
     "isfname",
     "termguicolors",
     "incsearch",
-    "hlsearch"
+    "hlsearch",
+    "tokyonight"
   ]
 }

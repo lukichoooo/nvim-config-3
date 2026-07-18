@@ -9,7 +9,7 @@ return {
 			colors.bg_dark = "#090909"
 		end,
 		on_highlights = function(hl, _)
-			hl.DiagnosticUnderlineWarn = { fg = "#5a6a8a", undercurl = true, sp = "#e0af68" }
+			hl.Comment = { fg = "#5a6a8a", italic = true }
 		end,
 	},
 	config = function(_, opts)
