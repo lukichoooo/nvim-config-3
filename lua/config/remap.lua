@@ -9,7 +9,15 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
-vim.keymap.set("v", "<C-S-c>", '"+y', { desc = "Copy to system clipboard" })
+-- system clipboard
+vim.keymap.set("v", "<C-S-c>", function()
+	local old = vim.fn.getreg('"', true)
+	local oldtype = vim.fn.getregtype('"')
+
+	vim.cmd('normal! "+y')
+
+	vim.fn.setreg('"', old, oldtype)
+end, { desc = "Copy only to system clipboard" })
 
 -- Clear search highlight on ESC
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR><Esc>")
