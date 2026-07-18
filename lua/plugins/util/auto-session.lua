@@ -1,16 +1,16 @@
-vim.o.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,winpos"
+vim.o.sessionoptions = "buffers,curdir,folds,help,tabpages,localoptions"
 
 -- automatically restore buffers
 return {
 	"rmagatti/auto-session",
 	config = function()
 		require("auto-session").setup({
+			auto_restore = true,
+			auto_save = true,
+			enabled = true,
 			log_level = "info",
-			auto_session_enabled = true,
-			auto_save_enabled = true,
-			auto_restore_enabled = true,
-			auto_session_suppress_dirs = { "~/", "~/Downloads" },
-			auto_session_root_dir = vim.fn.stdpath("data") .. "/sessions/",
+			root_dir = "/home/luka/.local/share/nvim/sessions/",
+			suppressed_dirs = { "~/", "~/Downloads" },
 		})
 
 		-- optional: create a command to restore manually
