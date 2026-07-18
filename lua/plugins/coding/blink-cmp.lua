@@ -6,6 +6,9 @@ return {
 	dependencies = { "saghen/blink.lib" },
 	opts = {
 		completion = { documentation = { auto_show = true } },
+		per_filetype = {
+			opencode_ask = {}, -- disable autocomplete for opencode_ask
+		},
 		keymap = {
 			["<Tab>"] = { "select_next", "fallback" },
 			["<S-Tab>"] = { "select_prev", "fallback" },
