@@ -1,5 +1,7 @@
 return {
 	"snacks.nvim",
+	lazy = false,
+	priority = 1000,
 	opts = {
 		indent = { enabled = true },
 		input = { enabled = true },
