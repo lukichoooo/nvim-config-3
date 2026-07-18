@@ -1,26 +1,27 @@
 vim.g.mapleader = " "
 
 -- Highlight on yank
+vim.api.nvim_set_hl(0, "YankClipboard", {
+	bg = "#3b82f6",
+	fg = "#ffffff",
+})
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Briefly highlight yanked text",
 	group = vim.api.nvim_create_augroup("YankHighlight", { clear = true }),
 	callback = function()
-		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 100 })
+		vim.highlight.on_yank({
+			higroup = vim.v.event.regname == "+" and "YankClipboard" or "IncSearch",
+			timeout = 100,
+		})
 	end,
 })
-
 -- system clipboard
-vim.keymap.set("v", "<C-S-c>", function()
-	local old = vim.fn.getreg('"', true)
+vim.keymap.set("v", "C", function()
+	local old = vim.fn.getreg('"', 1)
 	local oldtype = vim.fn.getregtype('"')
-
 	vim.cmd('normal! "+y')
-
 	vim.fn.setreg('"', old, oldtype)
 end, { desc = "Copy only to system clipboard" })
-
--- Clear search highlight on ESC
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR><Esc>")
 
 -- VIM STUFF
 vim.opt.number = true -- show absolute line numbers
