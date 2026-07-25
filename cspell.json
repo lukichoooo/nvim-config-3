@@ -36,6 +36,7 @@
     "termguicolors",
     "incsearch",
     "hlsearch",
-    "tokyonight"
+    "tokyonight",
+    "autocmd"
   ]
 }
