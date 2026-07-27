@@ -198,4 +198,16 @@ include current-theme.conf
 # END_KITTY_THEME
 ```
 
+### Get Discord Presence ("andweeb/presence.nvim") Working
+2. Snap Discord only — fix the IPC socket
+```
+ln -sf "$XDG_RUNTIME_DIR/snap.discord/discord-ipc-0" "$XDG_RUNTIME_DIR/discord-ipc-0"
+```
+
+3. Make it permanent across reboots
+```
+mkdir -p ~/.config/user-tmpfiles.d
+echo 'L %t/discord-ipc-0 - - - - snap.discord/discord-ipc-0' > ~/.config/user-tmpfiles.d/discord-rpc.conf
+systemctl --user enable --now systemd-tmpfiles-setup.service
+```
 
