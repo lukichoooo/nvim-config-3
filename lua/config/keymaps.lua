@@ -39,3 +39,17 @@ end, { expr = true, silent = true })
 
 ----------------------- Save File
 vim.keymap.set("n", "<C-s>", ":w<CR>", { noremap = true, silent = true })
+
+----------------------- Debugger
+vim.keymap.set("n", "<F5>", function()
+	require("dap").continue()
+end)
+vim.keymap.set("n", "<F9>", function()
+	require("dap").toggle_breakpoint()
+end)
+vim.keymap.set("n", "<F10>", function()
+	require("dap").step_over()
+end)
+vim.keymap.set("n", "<F11>", function()
+	require("dap").step_into()
+end)
