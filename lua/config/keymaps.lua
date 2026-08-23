@@ -53,3 +53,9 @@ end)
 vim.keymap.set("n", "<F11>", function()
 	require("dap").step_into()
 end)
+
+-- noice
+vim.keymap.set("n", "<Esc>", function()
+	vim.cmd("noh")
+	require("noice").cmd("dismiss")
+end, { desc = "Clear search highlights and noise UI" })
