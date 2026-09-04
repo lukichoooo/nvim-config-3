@@ -5,6 +5,7 @@ return {
 			"stylua",
 			"clangd",
 			"scpell_lsp",
+			"ts_ls",
 		},
 	},
 	dependencies = {
