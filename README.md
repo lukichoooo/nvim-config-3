@@ -44,7 +44,7 @@ Then save and quit (`:wq`).
 ### location: ````nvim ~/.config/clangd/config.yaml ````
 ```
 CompileFlags:
-  Add: [-std=c++20]
+  Add: [-std=c++23]
 ```
 
 
