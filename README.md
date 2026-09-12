@@ -6,6 +6,7 @@
 This configuration uses a custom clang-format style.
 
 ### clang-format Style
+### location: ````nvim ~/.clang-format````
 
 ```yaml
 BasedOnStyle: LLVM
@@ -38,6 +39,13 @@ BraceWrapping:
 ```
 Then save and quit (`:wq`).
 
+
+### clang-format Style
+### location: ````nvim ~/.config/clangd/config.yaml ````
+```
+CompileFlags:
+  Add: [-std=c++20]
+```
 
 
 ### Increase File watchers Size in Linux 
