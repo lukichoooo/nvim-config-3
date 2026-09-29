@@ -1,5 +1,5 @@
 return {
-	"NickvanDyke/opencode.nvim",
+	"nickjvandyke/opencode.nvim",
 	dependencies = {
 		{ "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
 	},
@@ -7,7 +7,9 @@ return {
 		---@type opencode.Opts
 		vim.g.opencode_opts = {
 			server = {
-				port = 4096,
+				-- Connect to the existing background service.
+				-- A session must exist for Neovim's cwd (create one via `cd <dir> && opencode`),
+				-- otherwise prompt/command fails with "No OpenCode session found…".
 				start = function()
 					-- no-op, connect to existing opencode
 				end,
