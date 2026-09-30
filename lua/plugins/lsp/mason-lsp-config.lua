@@ -5,7 +5,7 @@ return {
 			"stylua",
 			"clangd",
 			"scpell_lsp",
-			"ts_ls",
+			"typescript-language-server",
 		},
 	},
 	dependencies = {

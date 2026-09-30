@@ -137,7 +137,6 @@ sudo apt install xclip
 <details>
 <summary> Opencode </summary>
 
-# OpenCode
 instell opencode via snap store
 and open it via 
 ```yaml
@@ -147,6 +146,25 @@ you can use it after you cd /path-to-project && opencode
 
 </details>
 
+<details>
+<summary> dotnet tools </summary>
+
+```yaml
+dotnet tool install -g EasyDotnet
+dotnet-easydotnet roslyn install
+``````
+and add it to path
+
+</details>
+
+
+<details>
+<summary> install luarocks </summary>
+
+```yaml
+``````
+
+</details>
 
 
 <details>
