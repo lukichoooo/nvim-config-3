@@ -1,9 +1,10 @@
 return {
 	"saghen/blink.cmp",
+	version = "*",
+	dependencies = { { "saghen/blink.lib", version = "*" } },
 	build = function()
 		require("blink.cmp").build():pwait()
 	end,
-	dependencies = { "saghen/blink.lib" },
 	opts = {
 		completion = { documentation = { auto_show = true } },
 		sources = {
