@@ -12,7 +12,7 @@ return {
 			animate = {
 				duration = 1,
 				-- easing = "linear",
-				fps = 60,
+				fps = 144,
 			},
 		},
 		statuscolumn = { enabled = false }, -- we set this in options.lua
