@@ -99,10 +99,21 @@ you can use it after you cd /path-to-project && opencode
 </details>
 
 <details>
+<summary> dotnet </summary>
+
+```
+export DOTNET_ROOT=$HOME/dotnet
+export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools   
+```
+
+</details>
+
+<details>
 <summary> dotnet tools </summary>
 
 ```yaml
-dotnet tool install -g EasyDotnet
+dotnet tool install --global EasyDotnet
+export PATH="$PATH:/home/luka/.dotnet/tools"
 dotnet-easydotnet roslyn install
 ``````
 and add it to path
