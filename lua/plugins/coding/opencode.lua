@@ -7,17 +7,23 @@ return {
 		---@type opencode.Opts
 		vim.g.opencode_opts = {
 			server = {
-				-- Connect to the existing background service.
-				-- A session must exist for Neovim's cwd (create one via `cd <dir> && opencode`),
-				-- otherwise prompt/command fails with "No OpenCode session found…".
-				start = function()
-					-- no-op, connect to existing opencode
-				end,
-				stop = function()
-					-- no-op
-				end,
-				toggle = function()
-					-- no-op
+				-- Attach to the already-running `opencode` background service.
+				-- Never start a new instance or open any window.
+				start = false,
+				connect = true,
+				url = function(callback)
+					local ok, lines = pcall(vim.fn.readfile, vim.env.HOME .. "/.local/state/opencode/service-prod.json")
+					if not ok or not lines then
+						callback(nil)
+						return
+					end
+					local ok2, svc = pcall(vim.json.decode, table.concat(lines, "\n"))
+					if ok2 and svc and svc.url then
+						require("opencode.config").opts.server.password = svc.password
+						callback(svc.url)
+					else
+						callback(nil)
+					end
 				end,
 			},
 		}
