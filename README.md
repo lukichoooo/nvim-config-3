@@ -8,9 +8,24 @@ This configuration uses a custom clang-format style.
 
 ## Config
 
+<details>
+<summary>clang-format Style</summary>
+
 ### install Ghostty from snap
 
-1.Disable GNOME Terminal shortcut:Go to Settings > Keyboard > Keyboard Shortcuts > View and Customize Shortcuts > Launchers. Click on Launch terminal and press Backspace to clear Ctrl+Alt+T, then click Set.2.Add Ghostty shortcut:Scroll to the bottom of the shortcuts menu and click Custom Shortcuts. Click + (Add Shortcut) and fill in:Name: GhosttyCommand: ghosttyShortcut: Press Ctrl+Alt+T
+1.Disable GNOME Terminal shortcut:Go to Settings > Keyboard > Keyboard Shortcuts > View and Customize Shortcuts > Launchers. Click on Launch terminal and press Backspace to clear Ctrl+Alt+T, then click Set.
+
+2.Add Ghostty shortcut:Scroll to the bottom of the shortcuts menu and click Custom Shortcuts. Click + (Add Shortcut) and fill in:Name: GhosttyCommand: ghosttyShortcut: Press Ctrl+Alt+T
+
+```
+nvim .config/ghostty/config.ghostty
+```
+
+```
+theme = TokyoNight
+```
+
+</details>
 
 <details>
 <summary>clang-format Style</summary>
