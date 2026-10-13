@@ -40,7 +40,7 @@ return {
 				signs = {
 					text = {
 						[severity.ERROR] = ";<",
-						[severity.WARN] = "W",
+						[severity.WARN] = "><",
 						[severity.INFO] = ";3",
 						[severity.HINT] = ";>",
 					},
