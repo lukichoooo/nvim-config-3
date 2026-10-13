@@ -6,6 +6,7 @@ return {
 			"clangd",
 			"scpell_lsp",
 			"typescript-language-server",
+			"sonarlint-language-server",
 		},
 	},
 	dependencies = {

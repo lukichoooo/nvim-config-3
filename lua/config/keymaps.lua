@@ -41,18 +41,19 @@ end, { expr = true, silent = true })
 vim.keymap.set("n", "<C-s>", ":w<CR>", { noremap = true, silent = true })
 
 ----------------------- Debugger
-vim.keymap.set("n", "<F5>", function()
+vim.keymap.set("n", "<leader>dc", function()
 	require("dap").continue()
-end)
-vim.keymap.set("n", "<F9>", function()
+end, { desc = "Debug continue" })
+
+vim.keymap.set("n", "<leader>db", function()
 	require("dap").toggle_breakpoint()
-end)
-vim.keymap.set("n", "<F10>", function()
+end, { desc = "Toggle breakpoint" })
+vim.keymap.set("n", "<leader>ds>", function()
 	require("dap").step_over()
-end)
-vim.keymap.set("n", "<F11>", function()
+end, { desc = "Step over" })
+vim.keymap.set("n", "<leader>di", function()
 	require("dap").step_into()
-end)
+end, { desc = "Step into" })
 
 -- noice
 vim.keymap.set("n", "<Esc>", function()
