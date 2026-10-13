@@ -2,11 +2,9 @@ return {
 	"mason-org/mason-lspconfig.nvim",
 	opts = {
 		ensure_installed = {
-			"stylua",
 			"clangd",
-			"scpell_lsp",
-			"typescript-language-server",
-			"sonarlint-language-server",
+			"ts_ls",
+			"cspell_ls",
 		},
 	},
 	dependencies = {

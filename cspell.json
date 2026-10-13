@@ -38,6 +38,7 @@
     "incsearch",
     "hlsearch",
     "tokyonight",
-    "autocmd"
+    "autocmd",
+    "sonarlint"
   ]
 }
