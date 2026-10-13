@@ -114,6 +114,17 @@ you can use it after you cd /path-to-project && opencode
 </details>
 
 <details>
+<summary> SonarQube </summary>
+
+sudo apt install default-jre
+
+and check it via
+```yaml
+:SonarQubeShowConfig
+``````
+</details>
+
+<details>
 <summary> dotnet </summary>
 
 ```
