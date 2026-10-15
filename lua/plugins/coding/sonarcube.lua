@@ -29,6 +29,9 @@ return {
 				csharpOssPath = extension_path .. "/analyzers/sonarcsharp.jar",
 				csharpEnterprisePath = extension_path .. "/analyzers/csharpenterprise.jar",
 			},
+			rules = {
+				enabled = true,
+			},
 		})
 	end,
 }
