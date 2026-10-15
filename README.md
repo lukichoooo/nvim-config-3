@@ -23,6 +23,7 @@ nvim .config/ghostty/config.ghostty
 
 ```
 theme = TokyoNight
+mouse-hide-while-typing = true
 ```
 
 </details>
