@@ -159,6 +159,11 @@ and add it to path
 <details>
 <summary> fix ulimits </summary>
 
+Fixes the `:checkhealth` warning:
+`ulimit -n: 1024, recommended >= 4096 for neovim file watching`.
+
+### 1. Raise the limit for login shells
+
 * **Quit without saving:** Type `:q!` and press **Enter**.
 * **Open file:** Run `sudo nvim /etc/security/limits.d/99-nvim.conf`
 * **Paste lines:**
@@ -167,6 +172,48 @@ and add it to path
   * hard nofile 8192
     ```
 * **Save & exit:** Type :wq and press Enter.
+
+### 2. Why that alone was not enough (Ghostty + systemd)
+
+This is why `:checkhealth` still warned `ulimit -n: 1024` even after step 1.
+
+Ghostty runs every terminal surface inside a **transient systemd user scope**
+(`app-ghostty-surface-transient-*.scope`). Units spawned by the systemd *user*
+manager do **not** use `/etc/security/limits.d/*.conf` (that only applies via
+PAM at login); they use the manager's `DefaultLimitNOFILE`, whose **soft** value
+is `1024`. That `1024` is inherited by the shell and by Neovim, overriding
+step 1. The **hard** limit is still `8192`, so a normal user can raise the soft
+limit back up.
+
+See it for yourself inside a Ghostty shell:
+```bash
+ulimit -Sn    # 1024  (soft limit Neovim complained about)
+ulimit -Hn    # 8192  (hard limit — this is the ceiling we can reach)
+```
+The same reason also applies to a `systemd-run --user` unit:
+```bash
+systemd-run --user --wait bash -c 'grep "Max open files" /proc/self/limits'
+# -> 1024  8192
+```
+
+### 3. The fix
+
+Two ways — use either or both.
+
+**a) Per-shell (no root)** — add to `~/.bashrc`:
+```bash
+ulimit -n 8192 2>/dev/null
+```
+Covers anything launched from a shell. (Ghostty starts the shell as
+`bash --posix`, but its shell integration sources `~/.bashrc`, so this applies.)
+
+**b) System-wide (needs sudo)** — raise the systemd **user** manager default so
+every scope (including Ghostty surfaces) inherits it directly:
+```bash
+sudo mkdir -p /etc/systemd/user.conf.d
+printf '[Manager]\nDefaultLimitNOFILE=8192\n' | sudo tee /etc/systemd/user.conf.d/10-nofile.conf
+systemctl --user daemon-reexec   # or just log out and back in
+```
 
 </details>
 
