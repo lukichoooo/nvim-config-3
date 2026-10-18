@@ -105,7 +105,7 @@ sudo apt install xclip
 <details>
 <summary> Opencode </summary>
 
-instell opencode via snap store
+install opencode via snap store
 and open it via 
 ```yaml
 opencode
@@ -156,6 +156,19 @@ and add it to path
 
 </details>
 
+<details>
+<summary> fix ulimits </summary>
+
+* **Quit without saving:** Type `:q!` and press **Enter**.
+* **Open file:** Run `sudo nvim /etc/security/limits.d/99-nvim.conf`
+* **Paste lines:**
+  ```text
+  * soft nofile 8192
+  * hard nofile 8192
+    ```
+* **Save & exit:** Type :wq and press Enter.
+
+</details>
 
 <details>
 <summary>might Need</summary>
