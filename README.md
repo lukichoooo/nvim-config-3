@@ -17,7 +17,6 @@ Common options:
 
 ```bash
 ./setup.sh --with-ghostty --with-dotnet   # add Ghostty and .NET/EasyDotnet
-./setup.sh --with-battery                 # ThinkPad BAT0 charge thresholds
 ./setup.sh --flatpak-app dev.zed.Zed      # install an optional GUI app
 ./setup.sh --dry-run                      # print every action, change no system/config files
 ./setup.sh --help
@@ -298,48 +297,6 @@ sudo sysctl -p
 
 ### Font & Icons
 make sure to install nerdfont (non NL version)
-
-# Laptop Battery-Life Safety
-
-### Create systemd service 
-```yaml
-sudo nvim /etc/systemd/system/battery-conservation.service
-```
-
-### Paste this
-```yaml
-[Unit]
-Description=Lenovo ThinkPad Battery Conservation Mode
-After=multi-user.target
-
-[Service]
-Type=oneshot
-ExecStart=/bin/sh -c 'echo 75 > /sys/class/power_supply/BAT0/charge_control_start_threshold && echo 80 > /sys/class/power_supply/BAT0/charge_control_end_threshold'
-RemainAfterExit=true
-
-[Install]
-WantedBy=multi-user.target
-
-# Runs at boot:
-# "echo 75 > /sys/class/power_supply/BAT0/charge_control_start_threshold"
-# "echo 80 > /sys/class/power_supply/BAT0/charge_control_end_threshold" 
-```
-
-### Enable service
-```yaml
-sudo systemctl daemon-reload
-sudo systemctl enable battery-conservation.service
-sudo systemctl start battery-conservation.service
-```
-
-### Verify Thresholds
-```yaml
-cat /sys/class/power_supply/BAT0/charge_control_start_threshold
-cat /sys/class/power_supply/BAT0/charge_control_end_threshold
-```
-
-## remember!!! its better to keep your battery plugged in always
-## because it uses the power from cable, and battery is off 
 
 ### Get Discord Presence ("andweeb/presence.nvim") Working
 2. Snap Discord only — fix the IPC socket

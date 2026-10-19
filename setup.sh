@@ -25,7 +25,6 @@ ASSUME_YES=false
 SKIP_SYSTEM=false
 NO_BOOTSTRAP=false
 WITH_GHOSTTY=false
-WITH_BATTERY=false
 WITH_OPENCODE=true
 WITH_DOTNET=false
 DOTNET_SOURCE="script"
@@ -63,7 +62,6 @@ Options:
       --skip-system         Skip limits.d/systemd/sysctl tuning
       --no-bootstrap        Skip Lazy/Mason/Treesitter installation
       --with-ghostty        Install Ghostty from snap and write its config
-      --with-battery        Install the ThinkPad BAT0 battery service
       --no-opencode         Do not install OpenCode from snap
       --with-dotnet         Install .NET and EasyDotnet
       --dotnet-source=SRC   .NET source: script (default) or snap
@@ -182,7 +180,6 @@ parse_args() {
       --skip-system) SKIP_SYSTEM=true ;;
       --no-bootstrap) NO_BOOTSTRAP=true ;;
       --with-ghostty) WITH_GHOSTTY=true ;;
-      --with-battery) WITH_BATTERY=true ;;
       --no-opencode) WITH_OPENCODE=false ;;
       --with-dotnet) WITH_DOTNET=true ;;
       --dotnet-source=*)
@@ -232,7 +229,7 @@ confirm() {
   fi
 
   local opencode_state flatpak_state ghostty_state dotnet_state
-  local battery_state system_state bootstrap_state
+  local system_state bootstrap_state
   if $WITH_OPENCODE; then
     opencode_state="snap 2/stable (v2)"
   else
@@ -252,11 +249,6 @@ confirm() {
     dotnet_state="$DOTNET_SOURCE"
   else
     dotnet_state="skipped"
-  fi
-  if $WITH_BATTERY; then
-    battery_state="yes"
-  else
-    battery_state="skipped"
   fi
   if $SKIP_SYSTEM; then
     system_state="skipped"
@@ -280,7 +272,6 @@ Install plan
   Flatpak apps:    ${#FLATPAK_APPS[@]}
   Ghostty:         $ghostty_state
   .NET:            $dotnet_state
-  Battery service: $battery_state
   System tuning:   $system_state
   Neovim bootstrap:$bootstrap_state
 
@@ -850,39 +841,6 @@ LUA
   restore_lockfile
 }
 
-setup_battery() {
-  if ! $WITH_BATTERY; then
-    return 0
-  fi
-
-  if [[ ! -d /sys/class/power_supply/BAT0 ]]; then
-    warn "BAT0 not found; skipping the battery conservation service"
-    return 0
-  fi
-
-  if [[ ! -e /sys/class/power_supply/BAT0/charge_control_start_threshold ||
-    ! -e /sys/class/power_supply/BAT0/charge_control_end_threshold ]]; then
-    warn "BAT0 does not expose charge thresholds; skipping the battery service"
-    return 0
-  fi
-
-  log "Installing the battery conservation service"
-  run_sudo install -D -m 0644 "$ASSET_DIR/battery-conservation.service" \
-    /etc/systemd/system/battery-conservation.service
-  run_sudo systemctl daemon-reload
-  run_sudo systemctl enable --now battery-conservation.service ||
-    warn "Could not enable the battery service"
-
-  if ! $DRY_RUN; then
-    local field
-    for field in charge_control_start_threshold charge_control_end_threshold; do
-      if [[ -r "/sys/class/power_supply/BAT0/$field" ]]; then
-        log "BAT0 $field=$(cat "/sys/class/power_supply/BAT0/$field")"
-      fi
-    done
-  fi
-}
-
 validate_install() {
   if $DRY_RUN; then
     log "[dry-run] validation skipped"
@@ -1004,7 +962,6 @@ main() {
   update_shell_rc
   setup_system_tuning
   bootstrap_nvim
-  setup_battery
   validate_install
 
   summary
