@@ -7,23 +7,32 @@ return {
 		---@type opencode.Opts
 		vim.g.opencode_opts = {
 			server = {
-				-- Attach to the already-running `opencode` background service.
+				-- Attach to the already-running `opencode` v2 background service.
+				-- OpenCode v2.0.x writes `service-prod.json`; newer versions may
+				-- write `service.json`, so accept either one.
 				-- Never start a new instance or open any window.
 				start = false,
 				connect = true,
 				url = function(callback)
-					local ok, lines = pcall(vim.fn.readfile, vim.env.HOME .. "/.local/state/opencode/service-prod.json")
-					if not ok or not lines then
-						callback(nil)
-						return
+					local home = vim.uv.os_homedir() or vim.env.HOME or ""
+					local state_dir = (vim.env.XDG_STATE_HOME and vim.env.XDG_STATE_HOME ~= "")
+							and vim.fs.joinpath(vim.env.XDG_STATE_HOME, "opencode")
+						or vim.fs.joinpath(home, ".local", "state", "opencode")
+
+					for _, name in ipairs({ "service.json", "service-prod.json" }) do
+						local path = vim.fs.joinpath(state_dir, name)
+						local ok, lines = pcall(vim.fn.readfile, path)
+						if ok and lines and #lines > 0 then
+							local decoded_ok, svc = pcall(vim.json.decode, table.concat(lines, "\n"))
+							if decoded_ok and svc and svc.url then
+								require("opencode.config").opts.server.password = svc.password
+								callback(svc.url)
+								return
+							end
+						end
 					end
-					local ok2, svc = pcall(vim.json.decode, table.concat(lines, "\n"))
-					if ok2 and svc and svc.url then
-						require("opencode.config").opts.server.password = svc.password
-						callback(svc.url)
-					else
-						callback(nil)
-					end
+
+					callback(nil)
 				end,
 			},
 		}

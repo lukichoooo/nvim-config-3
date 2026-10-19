@@ -1,6 +1,34 @@
 
 #### My Configurations For ubuntu
 
+## Fresh Ubuntu Setup
+
+Clone the repo to the standard Neovim config path and run the installer:
+
+```bash
+git clone git@github.com:lukichoooo/nvim-config-3.git ~/.config/nvim
+# No SSH key yet? Use HTTPS instead:
+# git clone https://github.com/lukichoooo/nvim-config-3.git ~/.config/nvim
+cd ~/.config/nvim
+./setup.sh
+```
+
+Common options:
+
+```bash
+./setup.sh --with-ghostty --with-dotnet   # add Ghostty and .NET/EasyDotnet
+./setup.sh --with-battery                 # ThinkPad BAT0 charge thresholds
+./setup.sh --flatpak-app dev.zed.Zed      # install an optional GUI app
+./setup.sh --dry-run                      # print every action, change no system/config files
+./setup.sh --help
+```
+
+`setup.sh` installs Neovim, OpenCode v2, Flatpak/Flathub, the CLI toolchain,
+this config, and the system limits from this README. It also installs the
+`tree-sitter` CLI (required by the current `nvim-treesitter` branch) and
+compiles the common parsers. Use `--no-flatpak`, `--no-opencode`,
+`--no-bootstrap`, or `--skip-system` to opt out.
+
 # Neovim Config
 
 This configuration uses a custom clang-format style.
@@ -105,12 +133,19 @@ sudo apt install xclip
 <details>
 <summary> Opencode </summary>
 
-install opencode via snap store
-and open it via 
-```yaml
-opencode
-``````
-you can use it after you cd /path-to-project && opencode
+Install OpenCode v2 from the snap store:
+
+```bash
+sudo snap install opencode --classic --channel=2/stable
+opencode --version
+opencode service start
+opencode service status
+```
+
+OpenCode v2 registers its background service under
+`~/.local/state/opencode/service-prod.json` (some versions use
+`service.json`). The Neovim config reads either file and uses the generated
+password, so run `opencode` once inside a project before using the keymaps.
 
 </details>
 
@@ -128,10 +163,13 @@ and check it via
 <details>
 <summary> dotnet </summary>
 
-```
+```bash
 export DOTNET_ROOT=$HOME/dotnet
-export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools   
+export PATH=$PATH:$DOTNET_ROOT:$HOME/.dotnet/tools
 ```
+
+`setup.sh --with-dotnet` installs the LTS SDK and EasyDotnet, and writes this
+environment block to `~/.bashrc`.
 
 </details>
 
@@ -140,7 +178,7 @@ export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
 
 ```yaml
 dotnet tool install --global EasyDotnet
-export PATH="$PATH:/home/luka/.dotnet/tools"
+export PATH="$PATH:$HOME/.dotnet/tools"
 dotnet-easydotnet roslyn install
 ``````
 and add it to path
@@ -151,8 +189,9 @@ and add it to path
 <details>
 <summary> install luarocks </summary>
 
-```yaml
-``````
+```bash
+sudo apt install luarocks
+```
 
 </details>
 

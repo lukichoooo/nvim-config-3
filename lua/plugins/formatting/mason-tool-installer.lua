@@ -4,6 +4,10 @@ return {
 		ensure_installed = {
 			"stylua",
 			"sonarlint-language-server",
+			"black",
+			"isort",
+			"prettier",
+			"prettierd",
 		},
 	},
 	dependencies = {
